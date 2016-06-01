@@ -3,10 +3,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-
 import org.apache.log4j.Logger;
-import org.junit.AfterClass;
 import org.junit.Test;
 
 import com.iiplabs.cacheservice.cache.LocalCache;
@@ -32,14 +29,6 @@ public class CacheServiceTest {
 
 		LocalCache.put("4", "test-4");
 		assertNull(LocalCache.get("4"));
-	}
-	
-	@AfterClass
-	public static void clean() {
-	    File dir = new File(Constants.DEFAULT_BASE);
-	    for (File file : dir.listFiles()) {
-	        file.delete();
-	    }
 	}
 	
 }

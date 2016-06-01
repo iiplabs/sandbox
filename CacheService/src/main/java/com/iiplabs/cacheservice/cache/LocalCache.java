@@ -2,13 +2,14 @@ package com.iiplabs.cacheservice.cache;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
+import com.google.common.io.Files;
 import com.iiplabs.cacheservice.codes.CacheStrategy;
 import com.iiplabs.cacheservice.configuration.Constants;
 
 public final class LocalCache {
 
 	private final static MemoryCache MEMORY_CACHE = new MemoryCache(Constants.MEMORY_MAX);
-	private final static FileCache FILE_CACHE = new FileCache(Constants.DEFAULT_BASE, Constants.MEMORY_MAX);
+	private final static FileCache FILE_CACHE = new FileCache(Files.createTempDir(), Constants.MEMORY_MAX);
 	
 	private LocalCache() {
 		throw new AssertionError();
