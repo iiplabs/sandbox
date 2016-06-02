@@ -9,7 +9,7 @@ import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 
-public class FileCache extends Cache implements ICache {
+public class FileCache<V> extends Cache<V> implements ICache<V> {
 
 	private static Logger logger = Logger.getLogger(FileCache.class);
 	
@@ -24,12 +24,13 @@ public class FileCache extends Cache implements ICache {
 	/**
 	 * Method reads JSON file with Guava and attempts to deserialize into Object with Gson
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	public Object get(String key) {
+	public V get(String key) {
 		try {
 			String fileName = buildFileName(key);
 			String content = Files.toString(new File(fileName), Charsets.UTF_8);
-			return new Gson().fromJson(content, Object.class);
+			return (V) new Gson().fromJson(content, Object.class);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -39,7 +40,7 @@ public class FileCache extends Cache implements ICache {
 	 * Method serializes Object with Gson into temporary JSON file and then writes it to a file with Guava
 	 */
 	@Override
-	public void put(String key, Object value) {
+	public void put(String key, V value) {
 		int max = getMax();
 		if (size() >= max) {
 			throw new RuntimeException(String.format("Max elements (%d) exceeded", max));

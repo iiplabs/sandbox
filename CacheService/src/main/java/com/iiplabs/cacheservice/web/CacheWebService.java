@@ -26,13 +26,13 @@ public class CacheWebService implements ICacheWebService {
 
 	@WebMethod
 	@Override
-	public void putCacheElement(String key, Object value) {
+	public void putCacheElement(String key, String value) {
 		LocalCache.put(key, value);
 	}
 
 	@WebMethod
 	@Override
-	public String createCacheElement(Object value) {
+	public String createCacheElement(String value) {
 		return LocalCache.create(value);
 	}
 

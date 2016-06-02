@@ -11,9 +11,9 @@ public interface ICacheWebService {
 	public Object getCacheElement(@WebParam(name="key") String key);
 
 	@WebMethod
-	public void putCacheElement(@WebParam(name="key") String key, @WebParam(name="value") Object value);
+	public void putCacheElement(@WebParam(name="key") String key, @WebParam(name="value") String value);
 
 	@WebMethod
-	public String createCacheElement(@WebParam(name="value") Object value);
+	public String createCacheElement(@WebParam(name="value") String value);
 	
 }

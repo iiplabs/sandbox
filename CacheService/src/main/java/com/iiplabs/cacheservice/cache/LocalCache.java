@@ -8,8 +8,8 @@ import com.iiplabs.cacheservice.configuration.Constants;
 
 public final class LocalCache {
 
-	private final static MemoryCache MEMORY_CACHE = new MemoryCache(Constants.MEMORY_MAX);
-	private final static FileCache FILE_CACHE = new FileCache(Files.createTempDir(), Constants.MEMORY_MAX);
+	private final static ICache<String> MEMORY_CACHE = new MemoryCache<String>(Constants.MEMORY_MAX);
+	private final static ICache<String> FILE_CACHE = new FileCache<String>(Files.createTempDir(), Constants.MEMORY_MAX);
 	
 	private LocalCache() {
 		throw new AssertionError();
@@ -32,7 +32,7 @@ public final class LocalCache {
 	 * @param key
 	 * @param value
 	 */
-	public static synchronized void put(String key, Object value) {
+	public static synchronized void put(String key, String value) {
 		if (Constants.DEFAULT_STRATEGY.equals(CacheStrategy.FILE)) {
 			FILE_CACHE.put(key, value); 
 			return;
@@ -45,7 +45,7 @@ public final class LocalCache {
 	 * @param value
 	 * @return generated key
 	 */
-	public static synchronized String create(Object value) {
+	public static synchronized String create(String value) {
 		String key = RandomStringUtils.randomAlphanumeric(Constants.NEW_KEY_LEN);
 		put(key, value);
 		return key;

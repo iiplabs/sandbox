@@ -1,6 +1,6 @@
 package com.iiplabs.cacheservice.cache;
 
-public abstract class Cache {
+public abstract class Cache<V> {
 
 	private int max;
 	
@@ -11,8 +11,8 @@ public abstract class Cache {
 		this.max = max;
 	}
 	
-	public abstract Object get(String key);
-	public abstract void put(String key, Object value);
+	public abstract V get(String key);
+	public abstract void put(String key, V value);
 	public abstract int size();
 	
 }
