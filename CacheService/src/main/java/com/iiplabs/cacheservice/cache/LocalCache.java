@@ -9,7 +9,7 @@ import com.iiplabs.cacheservice.configuration.Constants;
 public final class LocalCache {
 
 	private final static ICache<String> MEMORY_CACHE = new MemoryCache<String>(Constants.MEMORY_MAX);
-	private final static ICache<String> FILE_CACHE = new FileCache<String>(Files.createTempDir(), Constants.MEMORY_MAX);
+	private final static ICache<String> FILE_CACHE = new FileCache<String>(Files.createTempDir(), Constants.FILE_MAX);
 	
 	private LocalCache() {
 		throw new AssertionError();
