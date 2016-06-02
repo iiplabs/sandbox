@@ -22,7 +22,7 @@ public class SpringConfigurationWebService {
     private ICacheWebService cacheWebService;
     
     @Bean
-    public Endpoint claimData() {
+    public Endpoint cacheData() {
         EndpointImpl endpoint = new EndpointImpl(cxfBus, cacheWebService);
         endpoint.setAddress("/cache");
         endpoint.publish();
