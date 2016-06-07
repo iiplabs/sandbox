@@ -5,4 +5,4 @@
  * @author igor
  *
  */
-package com.iiplabs.wsc.service.data;
+package com.iiplabs.wsc.util;

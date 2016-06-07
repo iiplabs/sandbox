@@ -39,8 +39,8 @@
 			                           <div>
 				                           <table>
 				                               <tr>
-				                                   <td class="labelcell"><form:label path="userName"><spring:message code="login.username"/>:</form:label></td>
-				                                   <td class="inputcell"><form:input path="userName" class="textinput" /></td>
+				                                   <td class="labelcell"><form:label path="email"><spring:message code="login.email"/>:</form:label></td>
+				                                   <td class="inputcell"><form:input path="email" class="textinput" /></td>
 				                               </tr>
 				                               <tr>
 				                                   <td class="labelcell"><form:label path="password"><spring:message code="login.password"/>:</form:label></td>
@@ -49,7 +49,7 @@
 				                           </table>
 			                           </div>
 			                           <div class="center">
-			                               <button id="button_login" type="submit"><spring:message code="button.login"/></button>
+			                               <button id="button_login" type="button"><spring:message code="button.login"/></button>
 			                           </div>                                       
 			                        </div>                
 			                    </form:form>
@@ -71,21 +71,23 @@
         
         <script type="text/javascript">
             $(document).ready(function() {
-                $("#button_login").click(function() {
-                      return false;
-                });
-
                 var socket = new SockJS('${pageContext.request.contextPath}/do-login');
                 var stompClient = Stomp.over(socket);
+
+                $("#button_login").click(function() {
+                	stompClient.send("/wsc/do-login", {}, 
+                			JSON.stringify({ 'email': $("#email").val(), 'num2': $("#password").val() }));
+                    return false;
+                });
+
                 stompClient.connect({}, function(frame) {
-                    setConnected(true);
-                    console.log('Connected: ' + frame);
-                    stompClient.subscribe('/topic/do-login-response', function(calResult){
-                        showResult(JSON.parse(calResult.body).result);
+                    stompClient.subscribe('/topic/do-login-response', function(res) {
+                    	console.log(res);
+                        //showResult(JSON.parse(calResult.body).result);
                     });
                 });
                 
-                $("#userName").focus();
+                $("#email").focus();
             });
         </script>
         

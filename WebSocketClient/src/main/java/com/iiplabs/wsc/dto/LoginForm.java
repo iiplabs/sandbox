@@ -5,7 +5,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public final class LoginForm implements Serializable {
 
-	private String userName;
+	private String email;
 	private String password;
 	
 	public LoginForm() {
@@ -17,21 +17,21 @@ public final class LoginForm implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return String.format("LoginForm [userName=%s, password=%s]", userName,
+		return String.format("LoginForm [email=%s, password=%s]", email,
 				password);
 	}
 
 	/**
-	 * @return the userName
+	 * @return the email
 	 */
-	public String getUserName() {
-		return userName;
+	public String getEmail() {
+		return email;
 	}
 	/**
-	 * @param userName the userName to set
+	 * @param email the email to set
 	 */
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	/**
 	 * @return the password

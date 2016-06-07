@@ -1,7 +1,10 @@
 package com.iiplabs.wsc.service;
 
+import com.iiplabs.wsc.dto.AuthenticationRequestDto;
+import com.iiplabs.wsc.dto.BaseMessageDto;
+
 public interface IUserService {
 
-	public void doLogin(String userName, String password);
+	public BaseMessageDto doLogin(AuthenticationRequestDto requestDto);
 	
 }

@@ -26,9 +26,10 @@ public class TokenDao extends BaseDao {
 	@NotNull
 	@Size(max=36)
 	@Id
-	@Column(name="sequence_id", updatable=false)
-	private String sequenceId;
+	@Column(name="token_id", updatable=false)
+	private String tokenId;
 	
+	@NotNull
 	@Column(name="expiry_date")
 	private Date expiryDate;
 
@@ -38,16 +39,21 @@ public class TokenDao extends BaseDao {
 	@Fetch(FetchMode.JOIN)
 	private UserDao user;
 
+	@NotNull
+	@Size(max=2)
+	@Column(name="status")
+	private String status;
+	
 	public TokenDao() {
 		super();
 	}
 
-	public String getSequenceId() {
-		return sequenceId;
+	public String getTokenId() {
+		return tokenId;
 	}
 
-	public void setSequenceId(String sequenceId) {
-		this.sequenceId = sequenceId;
+	public void setTokenId(String tokenId) {
+		this.tokenId = tokenId;
 	}
 
 	public Date getExpiryDate() {
@@ -64,6 +70,14 @@ public class TokenDao extends BaseDao {
 
 	public void setUser(UserDao user) {
 		this.user = user;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 }
