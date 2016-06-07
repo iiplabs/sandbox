@@ -20,7 +20,7 @@ public final class SearchCriteriaUtility {
 	}
 	
 	/**
-	 * Method searches user with specified email and password
+	 * Method searches user with given email and password
 	 * @param email
 	 * @param password
 	 * @return
@@ -45,6 +45,11 @@ public final class SearchCriteriaUtility {
 		};
 	}
 
+	/**
+	 * Method searches tokens for given email
+	 * @param email
+	 * @return
+	 */
 	public static Specification<TokenDao> findUserTokens(final String email) {
 		return new Specification<TokenDao>() {
 			

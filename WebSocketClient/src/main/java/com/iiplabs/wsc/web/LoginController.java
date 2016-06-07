@@ -26,6 +26,10 @@ public class LoginController {
 	@Autowired
 	private IUserService userService;
 	
+	public LoginController() {
+		super();
+	}
+	
 	@RequestMapping(value={"/login.jsp", "/login"}, method=RequestMethod.GET)
 	public void displayLogin(ModelMap model) {
 		model.addAttribute(LOGIN_FORM_ATTRIBUTE_NAME, new LoginForm());
@@ -33,7 +37,7 @@ public class LoginController {
 
     @MessageMapping("/do-login" )
     @SendTo("/topic/do-login-response")
-    public BaseMessageDto doLogin(LoginForm loginForm) throws Exception {
+    public BaseMessageDto doLogin(LoginForm loginForm) {
     	return userService.doLogin(DtoFactory.newAuthenticationRequestDto(loginForm));
     }
 	
