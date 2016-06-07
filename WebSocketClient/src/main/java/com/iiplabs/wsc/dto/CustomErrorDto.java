@@ -2,10 +2,14 @@ package com.iiplabs.wsc.dto;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @SuppressWarnings("serial")
 public class CustomErrorDto implements Serializable {
 
+	@JsonProperty("error_code")
 	private String code;
+	@JsonProperty("error_description")
 	private String description;
 	
 	public CustomErrorDto() {

@@ -4,10 +4,16 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @SuppressWarnings("serial")
 public class TokenDto implements Serializable {
 
+	@JsonProperty("api_token")
 	private UUID tokenId;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ssZ")
+	@JsonProperty("api_token_expiration_date")
 	private Date expiryDate;
 	
 	public TokenDto() {

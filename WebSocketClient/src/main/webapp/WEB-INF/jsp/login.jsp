@@ -76,14 +76,13 @@
 
                 $("#button_login").click(function() {
                 	stompClient.send("/wsc/do-login", {}, 
-                			JSON.stringify({ 'email': $("#email").val(), 'num2': $("#password").val() }));
+                			JSON.stringify({ 'email': $("#email").val(), 'password': $("#password").val() }));
                     return false;
                 });
 
                 stompClient.connect({}, function(frame) {
                     stompClient.subscribe('/topic/do-login-response', function(res) {
-                    	console.log(res);
-                        //showResult(JSON.parse(calResult.body).result);
+                    	console.log(JSON.parse(res.body).result);
                     });
                 });
                 

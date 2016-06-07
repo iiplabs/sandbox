@@ -50,6 +50,8 @@ public class UserService implements IUserService {
 		Collection<TokenDao> userTokens = tokenRepository.findAll(SearchCriteriaUtility.findUserTokens(loginForm.getEmail()));
 		if (null != userTokens) {
 			for (TokenDao tokenDao : userTokens) {
+				logger.info(String.format("Invalidating previous token %s of user %s", 
+						tokenDao.getTokenId(), tokenDao.getUser().getEmail()));
 				tokenDao.setStatus(TokenStatus.EXPIRED.code());
 			}
 		    tokenRepository.save(userTokens);
@@ -60,9 +62,11 @@ public class UserService implements IUserService {
 		AuthenticationResponseDto responseDto = DtoFactory.newAuthenticationResponseDto(expiryDate);
 		
 		// save token to db
-		TokenDao tokenDao = DaoFactory.newTokenDao(responseDto.getData());
-		tokenDao.setUser(userDao);
-		tokenRepository.save(tokenDao);
+		TokenDao newTokenDao = DaoFactory.newTokenDao(responseDto.getData());
+		newTokenDao.setUser(userDao);
+		logger.info(String.format("New token %s of user %s", 
+				newTokenDao.getTokenId(), newTokenDao.getUser().getEmail()));
+		tokenRepository.save(newTokenDao);
 		
 		return responseDto;
 	}
