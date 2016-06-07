@@ -22,8 +22,7 @@ public final class DtoFactory {
 	}
 
 	public static AuthenticationResponseDto newAuthenticationResponseDto(Date expiryDate) {
-		TokenDto tokenDto = new TokenDto();
-		tokenDto.setExpiryDate(expiryDate);
+		TokenDto tokenDto = new TokenDto(expiryDate);
 		return new AuthenticationResponseDto(tokenDto);
 	}
 

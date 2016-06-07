@@ -21,6 +21,11 @@ public class TokenDto implements Serializable {
 		tokenId = UUID.randomUUID();
 	}
 
+	public TokenDto(Date expiryDate) {
+		this();
+		setExpiryDate(expiryDate);
+	}
+	
 	@Override
 	public String toString() {
 		return "TokenDto [tokenId=" + tokenId + ", expiryDate=" + expiryDate + "]";
