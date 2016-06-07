@@ -9,13 +9,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta http-equiv="Pragma" content="no-cache" />
         
-        <meta http-equiv="X-UA-Compatible" content="IE=8, IE=9, IE=10, IE=edge" />
+        <meta http-equiv="X-UA-Compatible" content="IE=8, IE=9, IE=10, IE=11, IE=edge" />
 
-        <title><spring:message code="label.login.page_title"/></title>
+        <title><spring:message code="login.page_title"/></title>
         <link type="text/css" href="${pageContext.request.contextPath}/resources/css/blitzer/jquery-ui-1.10.3.custom.css" rel="Stylesheet" />  
-        <link type="text/css" href="${pageContext.request.contextPath}/resources/css/cmac2013web.css" rel="Stylesheet" />  
+        <link type="text/css" href="${pageContext.request.contextPath}/resources/css/wsc.css" rel="Stylesheet" />  
         <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-1.10.2.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-ui-1.10.3.custom.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/sockjs-0.3.4.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/stomp.min.js"></script>
     </head>
     
     <body>
@@ -29,7 +31,7 @@
 			                <div class="content">
 			    
 			                    <div>
-			                        <spring:message code="label.login.title"/>
+			                        <spring:message code="login.title"/>
 			                    </div>
 			                    
 			                    <form:form method="post" modelAttribute="loginForm">
@@ -37,11 +39,11 @@
 			                           <div>
 				                           <table>
 				                               <tr>
-				                                   <td class="labelcell"><form:label path="userName"><spring:message code="label.login.username"/></form:label></td>
+				                                   <td class="labelcell"><form:label path="userName"><spring:message code="login.username"/>:</form:label></td>
 				                                   <td class="inputcell"><form:input path="userName" class="textinput" /></td>
 				                               </tr>
 				                               <tr>
-				                                   <td class="labelcell"><form:label path="password"><spring:message code="label.login.password"/></form:label></td>
+				                                   <td class="labelcell"><form:label path="password"><spring:message code="login.password"/>:</form:label></td>
 				                                   <td class="inputcell"><form:password path="password" class="textinput" /></td>
 				                               </tr>
 				                           </table>
@@ -56,8 +58,8 @@
 			        
 			                <div class="footer">
 			                    <div>
-			                       <span>&copy; 2013-2016 </span>
-			                       <a href="http://www.canon.ca"><span>Canon Canada Inc.</span></a><span> - <spring:message code="label.main.footer.project_title_short"/></span>
+			                       <span>&copy; 2016 </span>
+			                       <span> - <spring:message code="footer.project_title_short"/></span>
 			                    </div>
 			                </div>
 			            </div>
@@ -70,9 +72,19 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 $("#button_login").click(function() {
-                      return true;
+                      return false;
                 });
 
+                var socket = new SockJS('${pageContext.request.contextPath}/do-login');
+                var stompClient = Stomp.over(socket);
+                stompClient.connect({}, function(frame) {
+                    setConnected(true);
+                    console.log('Connected: ' + frame);
+                    stompClient.subscribe('/topic/do-login-response', function(calResult){
+                        showResult(JSON.parse(calResult.body).result);
+                    });
+                });
+                
                 $("#userName").focus();
             });
         </script>

@@ -11,6 +11,6 @@ public final class GlobalConstants {
 		throw new AssertionError();
 	}
 	
-	public static final String SHARED_OBJECT_ID    = "cmacSessionObject";
+	public static final String SHARED_OBJECT_ID    = "sessionObject";
 	
 }

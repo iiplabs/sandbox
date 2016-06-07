@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.web.context.support.ServletContextAttributeExporter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -24,6 +25,7 @@ import com.iiplabs.wsc.shared.ISessionObject;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages={"com.iiplabs.wsc.web"})
+@Import({SpringConfigurationWebSocket.class})
 public class SpringConfigurationWebMvc extends WebMvcConfigurerAdapter {
 
 	@Autowired
