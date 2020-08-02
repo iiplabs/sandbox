@@ -1,0 +1,9 @@
+.classpath
+.factorypath
+.nuxt
+.settings
+bin
+dist
+target
+node_modules
+.vscode
