@@ -9,7 +9,7 @@ public interface CustomLinkedList<T> {
     T remove(T value);
     boolean contains(T value);
     void clear();
-    T removeFirst();
-    T removeLast();
+    void removeFirst();
+    void removeLast();
     
 }

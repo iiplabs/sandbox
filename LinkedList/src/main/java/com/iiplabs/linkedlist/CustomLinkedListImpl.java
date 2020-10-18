@@ -39,13 +39,11 @@ public class CustomLinkedListImpl<T> implements CustomLinkedList<T> {
 
 	@Override
 	public synchronized void addFirst(T value) {
-		// TODO Auto-generated method stub
 		head = new Node<T>(value);
 	}
 
 	@Override
 	public synchronized void addLast(T value) {
-		// TODO Auto-generated method stub
 		if (null == head) {
 			addFirst(value);
 		} else {
@@ -61,7 +59,6 @@ public class CustomLinkedListImpl<T> implements CustomLinkedList<T> {
 
 	@Override
 	public synchronized void insertBefore(T newValue, T beforeValue) {
-		// TODO Auto-generated method stub
 		if (null != head) {
 			Node<T> last = head;
 			do {
@@ -89,7 +86,6 @@ public class CustomLinkedListImpl<T> implements CustomLinkedList<T> {
 
 	@Override
 	public synchronized void insertAfter(T newValue, T afterValue) {
-		// TODO Auto-generated method stub
 		if (null != head) {
 			Node<T> last = head;
 			do {
@@ -106,15 +102,20 @@ public class CustomLinkedListImpl<T> implements CustomLinkedList<T> {
 				}
 				last = last.next;
             } while (null != last.next);
+			if (afterValue.equals(last.value) && null == last.next) {
+				Node<T> newNode = new Node<T>(newValue);
+				newNode.previous = last;
+				last.next = newNode;				
+			}
 		}
 	}
 
 	@Override
 	public synchronized T remove(T value) {
-		// TODO Auto-generated method stub
 		if (null != head) {
 			Node<T> last = head;
 			do {
+				boolean isHead = last.previous == null;
 				if (value.equals(last.value)) {
 					if (null == last.previous && null == last.next) {
 						head = null;
@@ -123,7 +124,12 @@ public class CustomLinkedListImpl<T> implements CustomLinkedList<T> {
 							last.previous.next = last.next;
 						}
 						if (null != last.next) {
-							last.next.previous = last.previous;
+							if (isHead) {
+								last.next.previous = null;
+								head = last.next;
+							} else {
+								last.next.previous = last.previous;
+							}
 						}
 					}
 				}
@@ -135,6 +141,7 @@ public class CustomLinkedListImpl<T> implements CustomLinkedList<T> {
 
 	@Override
 	public synchronized boolean contains(T value) {
+		boolean ret = false;
 		if (null != head) {
 			Node<T> last = head;
 			do {
@@ -144,21 +151,19 @@ public class CustomLinkedListImpl<T> implements CustomLinkedList<T> {
 				last = last.next;
 			} while (null != last.next);
 			if (null != last && value.equals(last.value)) {
-				return true;
+				ret = true;
 			}
 		}
-		return false;
+		return ret;
 	}
 
 	@Override
 	public synchronized void clear() {
-		// TODO Auto-generated method stub
 		head = null;
 	}
 
 	@Override
-	public synchronized T removeFirst() {
-		// TODO Auto-generated method stub
+	public synchronized void removeFirst() {
 		if (null != head) {
 			if (null == head.next) {
 				clear();
@@ -167,12 +172,10 @@ public class CustomLinkedListImpl<T> implements CustomLinkedList<T> {
 				head = head.next;
 			}
 		}
-		return null;
 	}
 
 	@Override
-	public synchronized T removeLast() {
-		// TODO Auto-generated method stub
+	public synchronized void removeLast() {
 		if (null != head) {
 			if (null == head.next) {
 				clear();
@@ -185,7 +188,6 @@ public class CustomLinkedListImpl<T> implements CustomLinkedList<T> {
 				last = null;
 			}
 		}
-		return null;
 	}
 
 }
