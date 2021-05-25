@@ -44,8 +44,11 @@ class Solution {
   }
 
   public static void main(String[] args) {
+    // [1, 1]
     System.out.println(numberOfItems("*|*|*|*", Arrays.asList(1, 1), Arrays.asList(1, 6)));
+    // [2]
     System.out.println(numberOfItems("*|**|*|*", Arrays.asList(1, 1), Arrays.asList(1, 6)));
+    // [2, 1]
     System.out.println(numberOfItems("*|**|*|*", Arrays.asList(1, 1), Arrays.asList(1, 7)));
   }
 
