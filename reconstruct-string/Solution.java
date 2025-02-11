@@ -51,6 +51,22 @@ public class Solution {
         return true;
     }
 
+    /**
+     * Every character may appear in the grid no more than twice
+     * @param dict
+     * @return
+     */
+    boolean checkDict(Map<String, Collection<Position>> dict) {
+        int MAX_DUPL_CHARS = 2;
+
+        for (String ch : dict.keySet()) {
+            if (dict.get(ch).size() > MAX_DUPL_CHARS) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     int calcDist(int[] prevPos, int[] pos) {
         int xxDist = Math.abs(pos[0] - prevPos[0]);
         int yyDist = Math.abs(pos[1] - prevPos[1]);
@@ -84,6 +100,10 @@ public class Solution {
 
         Map<String, Collection<Position>> dict = buidDict(grid);
         System.out.println(dict);
+        if (!checkDict(dict)) {
+            return RECONST_NOT_POSSIBLE;
+        }
+
         if (!checkSourceString(S, dict)) {
             return RECONST_NOT_POSSIBLE;
         }
